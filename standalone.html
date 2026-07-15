@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A heartfelt birthday tribute — celebrating the love of my life on their special day." />
+  <title>Happy Birthday, My Love 🎂</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,600&family=Fredoka:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/framer-motion@11/dist/framer-motion.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style>
+    :root {
+      --bg-page: #F5E8DC;
+      --text-dark: #6B3F3A;
+      --coral: #E8927C;
+      --pink: #D46A93;
+      --gradient: linear-gradient(90deg, #E8927C, #D46A93);
+      --card-white: #FFFFFF;
+      --card-border: #E3D3C2;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--bg-page); color: var(--text-dark); font-family: 'Montserrat', sans-serif; line-height: 1.6; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+
+    .gradient-text { background: var(--gradient); -webkit-background-clip: text; background-clip: text; color: transparent; display: inline-block; }
+    .section-header { font-family: 'Fredoka', sans-serif; font-weight: 700; font-size: clamp(1.5rem, 4vw, 1.9rem); text-align: center; margin-bottom: 2.5rem; text-transform: uppercase; }
+    .content-wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    @media (min-width: 640px) { .content-wrap { padding: 0 48px; } }
+    .section-pad { padding: 80px 0; }
+
+    /* NAV */
+    .nav-bar { position: sticky; top: 0; z-index: 100; background: var(--bg-page); border-bottom: 1px solid var(--card-border); backdrop-filter: blur(8px); }
+    .nav-inner { display: flex; align-items: center; justify-content: center; overflow-x: auto; scrollbar-width: none; padding: 0 16px; }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    .nav-link { display: inline-flex; align-items: center; padding: 14px 18px; font-family: 'Montserrat', sans-serif; font-size: 10px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--text-dark); opacity: 0.55; border-bottom: 2px solid transparent; border-top: none; border-left: none; border-right: none; transition: opacity 0.2s ease, border-color 0.2s ease; white-space: nowrap; cursor: pointer; background: none; }
+    .nav-link.active { opacity: 1; border-bottom: 2px solid var(--pink); }
+    .nav-link:hover { opacity: 1; }
+
+    /* HERO */
+    .hero-section { position: relative; width: 100%; height: 85vh; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    @media (min-width: 1024px) { .hero-section { height: 100vh; } }
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+    .hero-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #8A6A52 0%, #5C4433 60%, #D46A93 100%); }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(50,30,20,0.15), rgba(40,20,15,0.55)); }
+    .hero-content { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; color: #fff; padding: 0 24px; gap: 12px; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.85; font-weight: 500; }
+    .hero-title { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; font-size: clamp(2.25rem, 6vw, 3.5rem); line-height: 1.15; margin: 4px 0; }
+    .hero-divider { width: 40px; height: 1px; background: rgba(255,255,255,0.6); margin: 4px auto; }
+    .hero-subtitle { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.85; font-weight: 500; }
+    .hero-date { font-size: 15px; opacity: 0.9; }
+    .hero-cta { margin-top: 8px; padding: 9px 18px; border: 1px solid #fff; border-radius: 2px; color: #fff; font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 600; background: transparent; cursor: pointer; transition: background 0.25s, color 0.25s, transform 0.2s; font-family: 'Montserrat', sans-serif; }
+    .hero-cta:hover { background: #fff; color: var(--text-dark); transform: scale(1.03); }
+
+    /* STORY */
+    .timeline-wrap { max-width: 360px; margin: 0 auto; position: relative; padding-left: 28px; }
+    .timeline-line { position: absolute; left: 0; top: 8px; bottom: 0; width: 2px; background: var(--coral); }
+    .timeline-entry { position: relative; margin-bottom: 36px; }
+    .timeline-entry:last-child { margin-bottom: 0; }
+    .timeline-dot { position: absolute; left: -33px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: var(--pink); }
+    .timeline-date { font-size: 11px; opacity: 0.6; font-weight: 500; margin-bottom: 2px; }
+    .timeline-title { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+    .timeline-desc { font-size: 12px; opacity: 0.75; line-height: 1.6; }
+
+    /* GALLERY */
+    .gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (min-width: 768px) { .gallery-grid { grid-template-columns: 1.3fr 1fr 1fr; gap: 14px; } }
+    .gallery-tile { border-radius: 14px; overflow: hidden; cursor: pointer; aspect-ratio: 1/1; transition: transform 0.2s ease; }
+    @media (min-width: 768px) { .gallery-tile:first-child { grid-row: span 2; aspect-ratio: unset; } }
+    .gallery-tile:hover { transform: scale(1.03); }
+    .gallery-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gallery-placeholder { width: 100%; height: 100%; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; color: rgba(255,255,255,0.65); font-size: 11px; letter-spacing: 1px; }
+    .lightbox-overlay { position: fixed; inset: 0; background: rgba(30,15,10,0.88); z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 24px; }
+    .lightbox-img { max-width: 90vw; max-height: 85vh; border-radius: 10px; object-fit: contain; box-shadow: 0 24px 60px rgba(0,0,0,0.5); }
+    .lightbox-placeholder { width: 300px; height: 300px; background: linear-gradient(135deg, #8A6A52, #5C4433); border-radius: 10px; }
+    .lightbox-close { position: absolute; top: 16px; right: 20px; color: #fff; font-size: 28px; cursor: pointer; background: none; border: none; opacity: 0.7; transition: opacity 0.2s; line-height: 1; }
+    .lightbox-close:hover { opacity: 1; }
+
+    /* BANNER */
+    .banner-section { position: relative; width: 100%; height: 220px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+    @media (min-width: 1024px) { .banner-section { height: 320px; } }
+    .banner-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .banner-fallback { position: absolute; inset: 0; background: linear-gradient(135deg, #6B3F3A 0%, #8A6A52 50%, #E8927C 100%); }
+    .banner-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(50,30,20,0.2), rgba(40,20,15,0.6)); }
+    .banner-text { position: relative; z-index: 2; font-family: 'Playfair Display', serif; font-style: italic; font-weight: 600; font-size: clamp(1.4rem, 4vw, 2.2rem); color: #fff; text-align: center; padding: 0 24px; }
+
+    /* WISH */
+    .wish-card { background: var(--card-white); border: 1px solid var(--card-border); border-radius: 16px; padding: 36px 32px; max-width: 380px; margin: 0 auto; text-align: center; box-shadow: 0 4px 32px rgba(107,63,58,0.07); }
+    .wish-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .wish-text { font-size: 13px; color: var(--text-dark); opacity: 0.8; line-height: 1.75; white-space: pre-wrap; text-align: left; }
+    .wish-signature { margin-top: 20px; font-size: 12px; font-weight: 600; opacity: 0.5; text-align: right; letter-spacing: 0.3px; }
+
+    /* PLAYER */
+    .voice-section { padding-bottom: 100px; }
+    .player-card { background: var(--card-white); border: 1px solid var(--card-border); border-radius: 16px; padding: 32px 28px; max-width: 340px; margin: 0 auto; box-shadow: 0 4px 32px rgba(107,63,58,0.07); }
+    .player-caption { font-size: 12px; color: var(--text-dark); opacity: 0.6; text-align: center; margin-bottom: 24px; font-style: italic; }
+    .player-controls { display: flex; align-items: center; gap: 16px; }
+    .play-btn { width: 52px; height: 52px; border-radius: 50%; background: var(--gradient); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.2s, box-shadow 0.2s; flex-shrink: 0; box-shadow: 0 4px 16px rgba(212,106,147,0.35); }
+    .play-btn:hover { transform: scale(1.08); }
+    .play-btn svg { width: 20px; height: 20px; fill: #fff; margin-left: 2px; }
+    .play-btn.playing svg { margin-left: 0; }
+    .player-track-wrap { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+    .progress-bar-track { width: 100%; height: 5px; background: var(--card-border); border-radius: 10px; cursor: pointer; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: var(--gradient); border-radius: 10px; transition: width 0.1s linear; }
+    .player-times { display: flex; justify-content: space-between; font-size: 11px; opacity: 0.5; font-weight: 500; }
+
+    /* FOOTER */
+    .footer { background: var(--bg-page); border-top: 1px solid var(--card-border); padding: 24px; text-align: center; font-size: 11px; opacity: 0.5; letter-spacing: 0.5px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+    const { motion, AnimatePresence, useReducedMotion } = FramerMotion;
+
+    const NAMES = { birthday_person: "Divya", writer: "Your Love" };
+    const DATES = { birthday: "July 12", year: "2026" };
+    const TIMELINE_ENTRIES = [
+      { date: "March 14, 2022", title: "The day we met", description: "A moment I'll never forget — you walked in and changed everything." },
+      { date: "June 21, 2022", title: "Our first adventure", description: "Road trips, laughter, and a thousand tiny moments that felt like home." },
+      { date: "December 31, 2023", title: "A new year, together", description: "Watching the fireworks with you, knowing this was exactly where I belonged." },
+      { date: "July 12, 2026", title: "Today 🎉", description: "Here we are — celebrating you, the most wonderful person in my world." },
+    ];
+    const WISH_MESSAGE = `Happy Birthday to the one who makes ordinary days feel extraordinary.\n\nYou are my favourite person, my safe place, and my greatest adventure. \nEvery single day with you is a gift I never take for granted.\n\nMay this year bring you all the joy, love, and magic you deserve — \nand may every day of it remind you just how deeply you are loved.\n\nHere's to you, today and always. 🎂✨`;
+    const BANNER_CAPTION = "us, always";
+    const VOICE_NOTE_CAPTION = "a little something for you 🎵";
+    const GALLERY_PHOTOS = [
+      { src: "gallery/photo-1.jpg", alt: "Memory 1" },
+      { src: "gallery/photo-2.jpg", alt: "Memory 2" },
+      { src: "gallery/photo-3.jpg", alt: "Memory 3" },
+      { src: "gallery/photo-4.jpg", alt: "Memory 4" },
+      { src: "gallery/photo-5.jpg", alt: "Memory 5" },
+      { src: "gallery/photo-6.jpg", alt: "Memory 6" },
+      { src: "gallery/photo-7.jpg", alt: "Memory 7" },
+      { src: "gallery/photo-8.jpg", alt: "Memory 8" },
+    ];
+    const GRADIENTS = [
+      'linear-gradient(135deg,#E8927C,#D46A93)',
+      'linear-gradient(135deg,#C97B65,#A85580)',
+      'linear-gradient(135deg,#8A6A52,#6B3F3A)',
+      'linear-gradient(135deg,#D46A93,#E8927C)',
+      'linear-gradient(135deg,#6B3F3A,#8A6A52)',
+      'linear-gradient(135deg,#A85580,#C97B65)',
+      'linear-gradient(135deg,#E8927C,#8A6A52)',
+      'linear-gradient(135deg,#D46A93,#6B3F3A)',
+    ];
+
+    const NAV_TABS = [
+      { label: 'Home', id: 'hero' },
+      { label: 'Story', id: 'story' },
+      { label: 'Gallery', id: 'gallery' },
+      { label: 'Wish', id: 'wish' },
+      { label: 'Voice Note', id: 'voice' },
+    ];
+
+    function NavBar() {
+      const [active, setActive] = useState('hero');
+      useEffect(() => {
+        const obs = new IntersectionObserver(
+          entries => entries.forEach(e => { if (e.isIntersecting) setActive(e.target.id); }),
+          { threshold: 0.35, rootMargin: '-60px 0px 0px 0px' }
+        );
+        NAV_TABS.forEach(t => { const el = document.getElementById(t.id); if (el) obs.observe(el); });
+        return () => obs.disconnect();
+      }, []);
+      const go = id => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return (
+        <nav className="nav-bar">
+          <div className="nav-inner">
+            {NAV_TABS.map(t => (
+              <button key={t.id} className={'nav-link' + (active === t.id ? ' active' : '')} onClick={() => go(t.id)}>{t.label}</button>
+            ))}
+          </div>
+        </nav>
+      );
+    }
+
+    function HeroSection() {
+      const shouldReduceMotion = useReducedMotion();
+      const [imgFailed, setImgFailed] = useState(false);
+      const container = { hidden: {}, visible: { transition: { staggerChildren: 0.15 } } };
+      const item = shouldReduceMotion
+        ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4 } } }
+        : { hidden: { opacity: 0, y: 22 }, visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } } };
+      return (
+        <section id="hero" className="hero-section">
+          {imgFailed ? <div className="hero-fallback" /> : <img src="hero-photo.jpg" alt="Hero" className="hero-bg" onError={() => setImgFailed(true)} />}
+          <div className="hero-overlay" aria-hidden="true" />
+          <motion.div className="hero-content" variants={container} initial="hidden" animate="visible">
+            <motion.p className="hero-eyebrow" variants={item}>we are celebrating</motion.p>
+            <motion.h1 className="hero-title" variants={item}>Happy Birthday</motion.h1>
+            <motion.div className="hero-divider" variants={item} aria-hidden="true" />
+            <motion.p className="hero-subtitle" variants={item}>to the love of my life</motion.p>
+            <motion.p className="hero-date" variants={item}>{DATES.birthday}, {DATES.year}</motion.p>
+            <motion.button className="hero-cta" variants={item} whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }} onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth' })}>Scroll for our story</motion.button>
+          </motion.div>
+        </section>
+      );
+    }
+
+    function StorySection() {
+      const shouldReduceMotion = useReducedMotion();
+      return (
+        <section id="story" className="section-pad" style={{ background: 'var(--bg-page)' }}>
+          <div className="content-wrap">
+            <h2 className="section-header"><span className="gradient-text">Our Story</span></h2>
+            <div className="timeline-wrap">
+              <div className="timeline-line" />
+              {TIMELINE_ENTRIES.map((entry, i) => {
+                const v = shouldReduceMotion
+                  ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4, delay: i * 0.1 } } }
+                  : { hidden: { opacity: 0, x: -24 }, visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: 'easeOut', delay: i * 0.1 } } };
+                return (
+                  <motion.div key={i} className="timeline-entry" variants={v} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
+                    <div className="timeline-dot" />
+                    <p className="timeline-date">{entry.date}</p>
+                    <p className="timeline-title">{entry.title}</p>
+                    {entry.description && <p className="timeline-desc">{entry.description}</p>}
+                  </motion.div>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    function PhotoTile({ photo, index, onClick }) {
+      const [failed, setFailed] = useState(false);
+      const shouldReduceMotion = useReducedMotion();
+      const v = shouldReduceMotion
+        ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.4, delay: index * 0.06 } } }
+        : { hidden: { opacity: 0, y: 16 }, visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut', delay: index * 0.06 } } };
+      return (
+        <motion.div className="gallery-tile" style={{ gridRow: index === 0 ? 'span 2' : undefined }} variants={v} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }} onClick={() => onClick(index)} role="button" tabIndex={0} aria-label={photo.alt} onKeyDown={e => e.key === 'Enter' && onClick(index)}>
+          {!failed
+            ? <img src={photo.src} alt={photo.alt} loading="lazy" onError={() => setFailed(true)} />
+            : <div className="gallery-placeholder" style={{ background: GRADIENTS[index % GRADIENTS.length] }}>
+                <span style={{ fontSize: '1.8rem', opacity: 0.75 }}>🤍</span>
+                <span>memory {index + 1}</span>
+              </div>
+          }
+        </motion.div>
+      );
+    }
+
+    function Lightbox({ photos, selectedIndex, onClose }) {
+      const [imgFailed, setImgFailed] = useState(false);
+      const photo = photos[selectedIndex];
+      useEffect(() => {
+        const h = e => { if (e.key === 'Escape') onClose(); };
+        window.addEventListener('keydown', h);
+        document.body.style.overflow = 'hidden';
+        return () => { window.removeEventListener('keydown', h); document.body.style.overflow = ''; };
+      }, [onClose]);
+      return (
+        <div className="lightbox-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+          {!imgFailed
+            ? <img src={photo.src} alt={photo.alt} className="lightbox-img" onError={() => setImgFailed(true)} />
+            : <div className="lightbox-placeholder" />
+          }
+          <button className="lightbox-close" onClick={onClose} aria-label="Close">&#215;</button>
+        </div>
+      );
+    }
+
+    function GallerySection() {
+      const [selected, setSelected] = useState(null);
+      const close = useCallback(() => setSelected(null), []);
+      return (
+        <section id="gallery" className="section-pad" style={{ background: 'var(--bg-page)' }}>
+          <div className="content-wrap">
+            <h2 className="section-header"><span className="gradient-text">Memories With You</span></h2>
+            <div className="gallery-grid">
+              {GALLERY_PHOTOS.map((p, i) => <PhotoTile key={i} photo={p} index={i} onClick={setSelected} />)}
+            </div>
+          </div>
+          {selected !== null && <Lightbox photos={GALLERY_PHOTOS} selectedIndex={selected} onClose={close} />}
+        </section>
+      );
+    }
+
+    function BannerSection() {
+      const [failed, setFailed] = useState(false);
+      return (
+        <section id="banner" className="banner-section" aria-label="Banner">
+          {failed ? <div className="banner-fallback" /> : <img src="banner-photo.jpg" alt="Banner" className="banner-bg" onError={() => setFailed(true)} />}
+          <div className="banner-overlay" />
+          <p className="banner-text">{BANNER_CAPTION}</p>
+        </section>
+      );
+    }
+
+    function WishSection() {
+      const shouldReduceMotion = useReducedMotion();
+      const v = shouldReduceMotion
+        ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5 } } }
+        : { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } } };
+      return (
+        <section id="wish" className="section-pad" style={{ background: 'var(--bg-page)' }}>
+          <div className="content-wrap">
+            <h2 className="section-header"><span className="gradient-text">Happy Birthday</span></h2>
+            <motion.div className="wish-card" variants={v} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }}>
+              <span className="wish-icon" role="img" aria-label="cake">🎂</span>
+              <p className="wish-text">{WISH_MESSAGE}</p>
+              <p className="wish-signature">— {NAMES.writer}</p>
+            </motion.div>
+          </div>
+        </section>
+      );
+    }
+
+    function formatTime(s) {
+      if (!s || isNaN(s)) return '0:00';
+      return Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+    }
+
+    function VoiceSection() {
+      const audioRef = useRef(null);
+      const barRef = useRef(null);
+      const [playing, setPlaying] = useState(false);
+      const [curr, setCurr] = useState(0);
+      const [dur, setDur] = useState(0);
+      const shouldReduceMotion = useReducedMotion();
+
+      useEffect(() => {
+        const a = audioRef.current;
+        if (!a) return;
+        const onT = () => setCurr(a.currentTime);
+        const onL = () => setDur(a.duration);
+        const onE = () => setPlaying(false);
+        a.addEventListener('timeupdate', onT);
+        a.addEventListener('loadedmetadata', onL);
+        a.addEventListener('ended', onE);
+        return () => { a.removeEventListener('timeupdate', onT); a.removeEventListener('loadedmetadata', onL); a.removeEventListener('ended', onE); };
+      }, []);
+
+      const toggle = () => {
+        const a = audioRef.current;
+        if (!a) return;
+        if (playing) { a.pause(); setPlaying(false); } else { a.play().catch(() => {}); setPlaying(true); }
+      };
+
+      const seek = e => {
+        const a = audioRef.current, bar = barRef.current;
+        if (!a || !bar || !dur) return;
+        const r = bar.getBoundingClientRect();
+        a.currentTime = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width)) * dur;
+      };
+
+      const v = shouldReduceMotion
+        ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.5 } } }
+        : { hidden: { opacity: 0, scale: 0.95 }, visible: { opacity: 1, scale: 1, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] } } };
+
+      const pct = dur > 0 ? (curr / dur) * 100 : 0;
+
+      return (
+        <section id="voice" className="section-pad voice-section" style={{ background: 'var(--bg-page)' }}>
+          <div className="content-wrap">
+            <h2 className="section-header"><span className="gradient-text">Voice Note</span></h2>
+            <motion.div className="player-card" variants={v} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.4 }}>
+              <p className="player-caption">{VOICE_NOTE_CAPTION}</p>
+              <audio ref={audioRef} src="voice-note.mp3" preload="metadata" />
+              <div className="player-controls">
+                <motion.button className={'play-btn' + (playing ? ' playing' : '')} onClick={toggle} whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.94 }} aria-label={playing ? 'Pause' : 'Play'}>
+                  {playing
+                    ? <svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    : <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                  }
+                </motion.button>
+                <div className="player-track-wrap">
+                  <div className="progress-bar-track" ref={barRef} onClick={seek} role="slider" aria-valuenow={Math.round(curr)} aria-valuemin={0} aria-valuemax={Math.round(dur)} tabIndex={0}>
+                    <div className="progress-bar-fill" style={{ width: pct + '%' }} />
+                  </div>
+                  <div className="player-times"><span>{formatTime(curr)}</span><span>{formatTime(dur)}</span></div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      );
+    }
+
+    function Footer() {
+      return (
+        <footer className="footer">
+          <p>Made with love for {NAMES.birthday_person} · {DATES.birthday}, {DATES.year}</p>
+        </footer>
+      );
+    }
+
+    function App() {
+      return (
+        <>
+          <HeroSection />
+          <NavBar />
+          <StorySection />
+          <GallerySection />
+          <BannerSection />
+          <WishSection />
+          <VoiceSection />
+          <Footer />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
