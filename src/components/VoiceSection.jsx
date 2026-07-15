@@ -125,7 +125,7 @@ export default function VoiceSection() {
           <p className="player-caption">{VOICE_NOTE_CAPTION}</p>
 
           {/* Hidden native audio element */}
-          <audio ref={audioRef} src="/Standard recording 2.mp3" preload="auto" />
+          <audio ref={audioRef} src={`${import.meta.env.BASE_URL}Standard%20recording%202.mp3`} preload="auto" />
 
           <div className="player-controls">
             {/* Play / Pause button */}
