@@ -30,7 +30,7 @@ export default function HeroSection() {
     <section id="hero" className="hero-section">
       {/* Background image */}
       <img
-        src="/hero-photo.jpg"
+        src={`${import.meta.env.BASE_URL}hero-photo.jpg`}
         alt={`${NAMES.birthday_person} birthday hero`}
         className="hero-bg"
         onError={(e) => {

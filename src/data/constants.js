@@ -53,13 +53,15 @@ export const BANNER_CAPTION = "us, always";
 
 export const VOICE_NOTE_CAPTION = "a little something for you 🎵";
 
+const base = import.meta.env.BASE_URL;
+
 export const GALLERY_PHOTOS = [
-  { src: "/gallery/photo-1.jpg", alt: "Memory 1" },
-  { src: "/gallery/photo-2.jpg", alt: "Memory 2" },
-  { src: "/gallery/photo-3.jpg", alt: "Memory 3" },
-  { src: "/gallery/photo-4.jpg", alt: "Memory 4" },
-  { src: "/gallery/photo-5.jpg", alt: "Memory 5" },
-  { src: "/gallery/photo-6.jpg", alt: "Memory 6" },
-  { src: "/gallery/photo-7.jpg", alt: "Memory 7" },
-  { src: "/gallery/photo-8.jpg", alt: "Memory 8" },
+  { src: `${base}gallery/photo-1.jpg`, alt: "Memory 1" },
+  { src: `${base}gallery/photo-2.jpg`, alt: "Memory 2" },
+  { src: `${base}gallery/photo-3.jpg`, alt: "Memory 3" },
+  { src: `${base}gallery/photo-4.jpg`, alt: "Memory 4" },
+  { src: `${base}gallery/photo-5.jpg`, alt: "Memory 5" },
+  { src: `${base}gallery/photo-6.jpg`, alt: "Memory 6" },
+  { src: `${base}gallery/photo-7.jpg`, alt: "Memory 7" },
+  { src: `${base}gallery/photo-8.jpg`, alt: "Memory 8" },
 ];

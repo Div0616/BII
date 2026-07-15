@@ -5,7 +5,7 @@ export default function BannerSection() {
     <section id="banner" aria-label="Photo banner" className="banner-section">
       {/* Background image */}
       <img
-        src="/banner-photo.jpg"
+        src={`${import.meta.env.BASE_URL}banner-photo.jpg`}
         alt="Banner photo"
         className="banner-bg"
         onError={(e) => {
